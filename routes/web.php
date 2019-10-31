@@ -4,6 +4,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/tentang-kami', function () {
+    return view('tentangKami');
+});
+
+
 Auth::routes();
 
 Route::middleware('auth')->prefix('manage')->group(function () {

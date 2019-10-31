@@ -18,7 +18,7 @@ class CreatePicturesTable extends Migration
             $table->string('caption', 100)->nullable();
             $table->string('url')->index();
             $table->string('pictureable_id')->index();
-            $table->string('pictureable_type', )->index();
+            $table->string('pictureable_type')->index();
             $table->string('description')->nullable();
             $table->timestamps();
         });
