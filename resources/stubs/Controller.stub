@@ -1,0 +1,63 @@
+<?php
+namespace App\Http\Controllers;
+
+use App\Http\Requests\Store{{modelName}};
+use App\Http\Requests\Update{{modelName}};
+use App\Traits\DbTrait;
+use Illuminate\Http\Request;
+
+class {{modelName}}Controller extends Controller
+{
+    use DbTrait;
+
+    protected $searchable = [{{ searchable }}];
+
+    public function index()
+    {
+        return view('{{modelNameSingularLowerCase}}.index');
+    }
+
+    public function list(Request $request)
+    {
+        return $this->getPaginated($request, '{{modelName}}', $this->searchable);
+    }
+
+    public function create()
+    {
+        return view('{{modelNameSingularLowerCase}}.create')->with(['fields' => $this->getFields()]);
+    }
+
+    public function store(Store{{modelName}} $request)
+    {
+        $this->dbStore($request, '{{modelName}}');
+        return redirect()->route('{{modelNamePluralLowerCase}}.index');
+    }
+
+    public function show($id)
+    {
+        $data = $this->dbGetById($id, '{{modelName}}');
+        return view('{{modelNameSingularLowerCase}}.show')->with([
+            'data' => $data,
+            'fields' => $this->getFields()
+        ]);
+    }
+
+    public function update(Update{{modelName}} $request, $id)
+    {
+        $this->dbUpdate($request, $id, '{{modelName}}');
+        return redirect()->route('{{modelNamePluralLowerCase}}.index');
+    }
+
+    public function destroy($id)
+    {
+        $this->dbDelete($id, '{{modelName}}');
+        return ['message' => '{{modelName}} deleted'];
+    }
+
+    protected function getFields()
+    {
+        return [
+            {{ fields }}
+        ];
+    }
+}
