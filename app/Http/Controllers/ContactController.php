@@ -30,7 +30,10 @@ class ContactController extends Controller
 
     public function store(StoreContact $request)
     {
-        $this->dbStore($request, 'Contact');
+        $data = $this->dbStore($request, 'Contact');
+        if ($request->ajax()) {
+            return $data;
+        }
         return redirect()->route('contacts.index');
     }
 
@@ -45,7 +48,10 @@ class ContactController extends Controller
 
     public function update(UpdateContact $request, $id)
     {
-        $this->dbUpdate($request, $id, 'Contact');
+        $data = $this->dbUpdate($request, $id, 'Contact');
+        if ($request->ajax()) {
+            return $data;
+        }
         return redirect()->route('contacts.index');
     }
 

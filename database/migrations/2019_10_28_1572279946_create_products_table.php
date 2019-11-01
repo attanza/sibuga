@@ -15,10 +15,14 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('company_id')->index();
             $table->string('code', 20)->unique();
             $table->string('name', 100)->index();
             $table->integer('stock')->nullable();
-            $table->string('company_id')->index();
+            $table->float('weight')->nullable();
+            $table->decimal('buy_price', 10, 2);
+            $table->decimal('sell_price', 10, 2);
+            $table->integer('lead_time')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

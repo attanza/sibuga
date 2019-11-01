@@ -168,7 +168,7 @@ class crud extends Command
 
     protected function view($name)
     {
-        $indexFolder = base_path('resources/views/' . strtolower($name));
+        $indexFolder = base_path('resources/views/' . Str::kebab(strtolower($name)));
 
         if (!file_exists($indexFolder)) {
             mkdir($indexFolder, 0777, true);
@@ -186,7 +186,7 @@ class crud extends Command
             $this->getStub('ViewIndex')
         );
 
-        file_put_contents(base_path('resources/views/' . strtolower($name) . '/index.blade.php'), $viewIndexTemplate);
+        file_put_contents(base_path('resources/views/' . Str::kebab(strtolower($name)). '/index.blade.php'), $viewIndexTemplate);
 
         $viewCreateTemplate = str_replace(
             [
@@ -202,7 +202,7 @@ class crud extends Command
             $this->getStub('ViewCreate')
         );
 
-        file_put_contents(base_path('resources/views/' . strtolower($name) . '/create.blade.php'), $viewCreateTemplate);
+        file_put_contents(base_path('resources/views/' .Str::kebab(strtolower($name)). '/create.blade.php'), $viewCreateTemplate);
 
         $viewShowTemplate = str_replace(
             [
@@ -220,12 +220,12 @@ class crud extends Command
             $this->getStub('ViewShow')
         );
 
-        file_put_contents(base_path('resources/views/' . strtolower($name) . '/show.blade.php'), $viewShowTemplate);
+        file_put_contents(base_path('resources/views/' . Str::kebab(strtolower($name)) . '/show.blade.php'), $viewShowTemplate);
     }
 
     protected function vueTable($name, $vueTableFields)
     {
-        $vueTableFolder = base_path('resources/js/components/' . strtolower($name));
+        $vueTableFolder = base_path('resources/js/components/' . Str::kebab(strtolower($name)));
 
         if (!file_exists($vueTableFolder)) {
             mkdir($vueTableFolder, 0777, true);
@@ -243,7 +243,7 @@ class crud extends Command
             $this->getStub('VueList')
         );
 
-        $vueTableLocation = 'resources/js/components/' . strtolower($name) . '/list.vue';
+        $vueTableLocation = 'resources/js/components/' . Str::kebab(strtolower($name)) . '/list.vue';
 
         file_put_contents(base_path($vueTableLocation), $vueTableTemplate);
     }

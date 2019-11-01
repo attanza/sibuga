@@ -2,7 +2,7 @@
   <div>
     <b-modal
       v-model="modalShow"
-      title="Add a Product"
+      title="Add a Contact"
       centered
       size="lg"
       header-bg-variant="primary"
@@ -11,24 +11,22 @@
     >
       <div>
         <b-form @submit="onSubmit" @reset="onReset">
-          <b-form-group label="Product" label-for="productId">
-            <b-form-select
-              v-model="form.product_id"
-              :options="productData"
-              @change="getPrice"
-              required
-            ></b-form-select>
+          <b-form-group label="Name" label-for="name">
+            <b-form-input id="name" v-model="form.name" type="text" required></b-form-input>
           </b-form-group>
 
-          <b-form-group label="Quantity" label-for="qty">
-            <b-form-input id="qty" v-model="form.qty" type="number" required></b-form-input>
+          <b-form-group label="Phone" label-for="phone">
+            <b-form-input id="phone" v-model="form.phone" type="text" required></b-form-input>
           </b-form-group>
-          <b-form-group label="Price" label-for="price">
-            <b-form-input id="price" v-model="form.price" type="number" required></b-form-input>
+
+          <b-form-group label="Email" label-for="email">
+            <b-form-input id="email" v-model="form.email" type="email" required></b-form-input>
           </b-form-group>
-          <b-form-group label="Note" label-for="note">
-            <b-form-input id="note" v-model="form.note" type="text"></b-form-input>
+
+          <b-form-group label="Gender" label-for="gender">
+            <b-form-select v-model="form.gender" :options="genders"></b-form-select>
           </b-form-group>
+
           <div class="d-flex justify-content-between">
             <b-button type="reset" @click="onReset">Cancel</b-button>
             <b-button type="submit" variant="primary" :loading="loading">Submit</b-button>
@@ -44,17 +42,21 @@ export default {
   data() {
     return {
       modalShow: false,
-      productData: [],
+      url: "/api/contacts",
       form: {
-        product_id: "",
-        qty: "",
-        price: "",
-        note: ""
+        name: "",
+        phone: "",
+        email: "",
+        gender: ""
       },
+      genders: [
+        { value: "Male", text: "Male" },
+        { value: "Female", text: "Female" }
+      ],
       loading: false
     };
   },
-  props: ["show", "products", "quotationId", "editData"],
+  props: ["show", "companyId", "editData"],
   watch: {
     show() {
       this.modalShow = this.show;
@@ -63,27 +65,7 @@ export default {
       if (this.editData) this.form = this.editData;
     }
   },
-  mounted() {
-    if (this.products) {
-      this.products.map(p =>
-        this.productData.push({
-          value: p.id,
-          text: p.name
-        })
-      );
-    }
-  },
   methods: {
-    async getPrice() {
-      try {
-        const resp = await axios
-          .get(`/api/products/${this.form.product_id}/price`)
-          .then(res => res.data);
-        this.form.price = Math.ceil(resp);
-      } catch (e) {
-        console.log("e", e);
-      }
-    },
     close() {
       this.$emit("onClose");
     },
@@ -98,17 +80,15 @@ export default {
       try {
         this.loading = true;
         e.preventDefault();
-        this.form.quotation_id = this.quotationId;
+        this.form.company_id = this.companyId;
         let resp;
         if (this.editData) {
           resp = await axios
-            .put("/api/quotation-products/" + this.editData.id, this.form)
+            .put(this.url + "/" + this.editData.id, this.form)
             .then(res => res.data);
           this.$emit("onUpdate", resp);
         } else {
-          resp = await axios
-            .post("/api/quotation-products", this.form)
-            .then(res => res.data);
+          resp = await axios.post(this.url, this.form).then(res => res.data);
           this.$emit("onAdd", resp);
         }
 
@@ -129,6 +109,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

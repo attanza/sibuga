@@ -9,7 +9,7 @@ class Company extends Model
 {
     use Uuid;
 
-    protected $fillable = ['name', 'phone', 'email', 'category', 'address', 'description'];
+    protected $fillable = ['name', 'phone', 'email', 'category', 'address', 'description', 'npwp', 'business_type', 'website'];
 
     public function contacts()
     {

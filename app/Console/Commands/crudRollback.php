@@ -69,11 +69,11 @@ class crudRollback extends Command
         }
 
 
-        $viewsDirname = base_path('resources/views/' . strtolower($name) . '/*.*');
+        $viewsDirname = base_path('resources/views/' . Str::kebab(strtolower($name)). '/*.*');
         array_map('unlink', glob($viewsDirname));
         rmdir($viewsDirname);
 
-        $vueDirname = base_path('resources/js/components/' . strtolower($name) . '/*.*');
+        $vueDirname = base_path('resources/js/components/' . Str::kebab(strtolower($name)) . '/*.*');
         array_map('unlink', glob($vueDirname));
         rmdir($vueDirname);
 

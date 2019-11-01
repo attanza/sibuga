@@ -17,21 +17,18 @@ Route::middleware(['auth:api'])->group(function () {
      * Contacts
      */
     Route::get('/contacts', 'ContactController@list');
-    Route::delete('/contacts/{id}', 'ContactController@destroy');
+    Route::post('/contacts', 'ContactController@store');
+    Route::put('/contacts/{contact}', 'ContactController@update');
+    Route::delete('/contacts/{contact}', 'ContactController@destroy');
 
     /**
      * Products
      */
     Route::get('/products', 'ProductController@list');
-    Route::delete('/products/{id}', 'ProductController@destroy');
-
-    /**
-     * Product Price
-     */
-    Route::get('/product-prices', 'ProductPriceController@list');
-    Route::post('/product-prices', 'ProductPriceController@store');
-    Route::put('/product-prices/{id}', 'ProductPriceController@update');
-    Route::delete('/product-prices/{id}', 'ProductPriceController@destroy');
+    Route::get('/products/{id}/price', 'ProductController@getPriceById');
+    Route::post('/products', 'ProductController@store');
+    Route::put('/products/{product}', 'ProductController@update');
+    Route::delete('/products/{product}', 'ProductController@destroy');
 
     /**
      * Projects

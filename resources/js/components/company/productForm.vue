@@ -11,24 +11,22 @@
     >
       <div>
         <b-form @submit="onSubmit" @reset="onReset">
-          <b-form-group label="Product" label-for="productId">
-            <b-form-select
-              v-model="form.product_id"
-              :options="productData"
-              @change="getPrice"
-              required
-            ></b-form-select>
+          <b-form-group label="Code" label-for="code">
+            <b-form-input id="code" v-model="form.code" type="text" required></b-form-input>
           </b-form-group>
 
-          <b-form-group label="Quantity" label-for="qty">
-            <b-form-input id="qty" v-model="form.qty" type="number" required></b-form-input>
+          <b-form-group label="Name" label-for="name">
+            <b-form-input id="name" v-model="form.name" type="text" required></b-form-input>
           </b-form-group>
-          <b-form-group label="Price" label-for="price">
-            <b-form-input id="price" v-model="form.price" type="number" required></b-form-input>
+
+          <b-form-group label="Stock" label-for="stock">
+            <b-form-input id="stock" v-model="form.stock" type="number"></b-form-input>
           </b-form-group>
-          <b-form-group label="Note" label-for="note">
-            <b-form-input id="note" v-model="form.note" type="text"></b-form-input>
+
+          <b-form-group label="Description" label-for="description">
+            <b-form-textarea v-model="form.description"></b-form-textarea>
           </b-form-group>
+
           <div class="d-flex justify-content-between">
             <b-button type="reset" @click="onReset">Cancel</b-button>
             <b-button type="submit" variant="primary" :loading="loading">Submit</b-button>
@@ -44,17 +42,17 @@ export default {
   data() {
     return {
       modalShow: false,
-      productData: [],
+      url: "/api/products",
       form: {
-        product_id: "",
-        qty: "",
-        price: "",
-        note: ""
+        name: "",
+        code: "",
+        stock: "",
+        description: ""
       },
       loading: false
     };
   },
-  props: ["show", "products", "quotationId", "editData"],
+  props: ["show", "companyId", "editData"],
   watch: {
     show() {
       this.modalShow = this.show;
@@ -64,26 +62,9 @@ export default {
     }
   },
   mounted() {
-    if (this.products) {
-      this.products.map(p =>
-        this.productData.push({
-          value: p.id,
-          text: p.name
-        })
-      );
-    }
+    this.form.code = `SBGP${Math.floor(Date.now() / 1000)}`;
   },
   methods: {
-    async getPrice() {
-      try {
-        const resp = await axios
-          .get(`/api/products/${this.form.product_id}/price`)
-          .then(res => res.data);
-        this.form.price = Math.ceil(resp);
-      } catch (e) {
-        console.log("e", e);
-      }
-    },
     close() {
       this.$emit("onClose");
     },
@@ -98,17 +79,15 @@ export default {
       try {
         this.loading = true;
         e.preventDefault();
-        this.form.quotation_id = this.quotationId;
+        this.form.company_id = this.companyId;
         let resp;
         if (this.editData) {
           resp = await axios
-            .put("/api/quotation-products/" + this.editData.id, this.form)
+            .put(this.url + "/" + this.editData.id, this.form)
             .then(res => res.data);
           this.$emit("onUpdate", resp);
         } else {
-          resp = await axios
-            .post("/api/quotation-products", this.form)
-            .then(res => res.data);
+          resp = await axios.post(this.url, this.form).then(res => res.data);
           this.$emit("onAdd", resp);
         }
 
@@ -129,6 +108,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

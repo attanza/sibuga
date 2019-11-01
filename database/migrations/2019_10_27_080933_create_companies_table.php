@@ -19,6 +19,9 @@ class CreateCompaniesTable extends Migration
             $table->string('phone', 30)->index();
             $table->string('email', 200)->index();
             $table->string('category', 20)->index();
+            $table->string('npwp', 30)->nullable();
+            $table->string('business_type')->nullable();
+            $table->string('website')->nullable();
             $table->text('description')->nullable();
             $table->text('address')->nullable();
             $table->timestamps();

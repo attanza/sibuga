@@ -88,6 +88,24 @@ class CompanyController extends Controller
                 'selectValue' => $selectValue
             ],
             [
+                'key' => 'npwp',
+                'caption' => 'NPWP',
+                'htmlElement' => 'text',
+                'type' => 'text'
+            ],
+            [
+                'key' => 'business_type',
+                'caption' => 'Business Type',
+                'htmlElement' => 'text',
+                'type' => 'text'
+            ],
+            [
+                'key' => 'website',
+                'caption' => 'Website',
+                'htmlElement' => 'text',
+                'type' => 'text'
+            ],
+            [
                 'key' => 'address',
                 'caption' => 'Address',
                 'htmlElement' => 'textarea'

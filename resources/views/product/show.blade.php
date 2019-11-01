@@ -36,12 +36,6 @@
                     </form>
                 </b-card-text>
             </b-tab>
-            <b-tab title="Price">
-                <b-card-text>
-                    <product-prices product-id="{{ $data->id }}">
-                    </product-prices>
-                </b-card-text>
-            </b-tab>
             <b-tab title="Pictures">
                 <b-card-text>
                     <picture-list pictureable-id="{{ $data->id }}" pictureable-type="Product"></picture-list>

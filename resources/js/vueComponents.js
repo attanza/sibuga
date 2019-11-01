@@ -13,6 +13,14 @@ Vue.component(
  * Company
  */
 Vue.component("company-list", require("./components/company/list.vue").default);
+Vue.component(
+    "company-contacts",
+    require("./components/company/contacts.vue").default
+);
+Vue.component(
+    "company-products",
+    require("./components/company/products.vue").default
+);
 
 /**
  * Contact
@@ -23,15 +31,6 @@ Vue.component("contact-list", require("./components/contact/list.vue").default);
  * Product
  */
 Vue.component("product-list", require("./components/product/list.vue").default);
-Vue.component(
-    "product-prices",
-    require("./components/product/prices.vue").default
-);
-
-Vue.component(
-    "product-price-list",
-    require("./components/productPrice/list.vue").default
-);
 
 /**
  * Project
@@ -60,4 +59,4 @@ Vue.component(
  * Picture
  */
 Vue.component("picture-list", require("./components/picture/list.vue").default);
-Vue.component('user-list', require('./components/user/list.vue').default);
+Vue.component("user-list", require("./components/user/list.vue").default);

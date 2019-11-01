@@ -12,7 +12,7 @@ class Product extends Model
     protected $with = ['vendor'];
 
     protected $fillable = [
-        'name', 'stock', 'company_id', 'description', 'code'
+        'name', 'stock', 'company_id', 'description', 'code', 'weight', 'buy_price', 'sell_price', 'lead_time'
     ];
 
     protected $casts = [
@@ -21,6 +21,10 @@ class Product extends Model
         'name' => 'string',
         'stock' => 'integer',
         'company_id' => 'string',
+        'weight' => 'float',
+        'lead_time' => 'integer',
+        'buy_price' => 'decimal:2',
+        'sell_price' => 'decimal:2',
         'description' => 'string',
 
     ];

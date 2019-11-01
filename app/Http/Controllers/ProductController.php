@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProduct;
 use App\Http\Requests\UpdateProduct;
+use App\Models\Product;
 use App\Traits\DbTrait;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,7 @@ class ProductController extends Controller
 {
     use DbTrait;
 
-    protected $searchable = ['name', 'stock', 'company_id'];
+    protected $searchable = ['name', 'buy_price', 'sell_price', 'weight', 'lead_time'];
 
     public function index()
     {
@@ -30,7 +31,10 @@ class ProductController extends Controller
 
     public function store(StoreProduct $request)
     {
-        $this->dbStore($request, 'Product');
+        $data = $this->dbStore($request, 'Product');
+        if ($request->ajax()) {
+            return $data;
+        }
         return redirect()->route('products.index');
     }
 
@@ -45,7 +49,10 @@ class ProductController extends Controller
 
     public function update(UpdateProduct $request, $id)
     {
-        $this->dbUpdate($request, $id, 'Product');
+        $data = $this->dbUpdate($request, $id, 'Product');
+        if ($request->ajax()) {
+            return $data;
+        }
         return redirect()->route('products.index');
     }
 
@@ -55,15 +62,28 @@ class ProductController extends Controller
         return ['message' => 'Product deleted'];
     }
 
+    public function getPriceById($id)
+    {
+        $product = Product::find($id);
+        if (!isset($product)) {
+            return response("Product not found", 400);
+        }
+        return $product->sell_price;
+    }
+
     protected function getFields()
     {
         $companies = $this->getComboData('Company', ['category' => 'Vendor'], 'combo_vendor', 'name');
 
         return [
+            ['key' => 'company_id', 'caption' => 'Vendor', 'htmlElement' => 'select', 'selectValue' => $companies],
             ['key' => 'code', 'caption' => 'Code', 'htmlElement' => 'text', 'type' => 'text'],
             ['key' => 'name', 'caption' => 'Name', 'htmlElement' => 'text', 'type' => 'text'],
+            ['key' => 'buy_price', 'caption' => 'Buy Price', 'htmlElement' => 'text', 'type' => 'number'],
+            ['key' => 'sell_price', 'caption' => 'Sell Price', 'htmlElement' => 'text', 'type' => 'number'],
             ['key' => 'stock', 'caption' => 'Stock', 'htmlElement' => 'text', 'type' => 'text'],
-            ['key' => 'company_id', 'caption' => 'Vendor', 'htmlElement' => 'select', 'selectValue' => $companies],
+            ['key' => 'weight', 'caption' => 'Weight', 'htmlElement' => 'text', 'type' => 'number'],
+            ['key' => 'lead_time', 'caption' => 'Lead Time', 'htmlElement' => 'text', 'type' => 'number'],
             ['key' => 'description', 'caption' => 'Description', 'htmlElement' => 'text', 'type' => 'text'],
         ];
     }

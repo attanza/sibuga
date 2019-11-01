@@ -58,16 +58,24 @@ trait PdfTrait
             array_push($products, [
                 'no' => $i,
                 'name' => $product->product->name,
-                'price' => number_format($product->price)
+                'price' => number_format($product->price),
+                'qty' => $product->qty,
+                'subTotal' => number_format($product->qty * $product->price),
+                'note' => $product->note
             ]);
             $i++;
         }
+        $prefix = 'Bapak';
+        if (isset($contact)) {
+            $prefix = $contact->gender === 'Male' ? 'Bapak' : 'Ibu';
+        }
+
         $data = [
             'no' => $q->no,
             'location' => $request->location,
             'date' => $date->format('d F Y'),
-            'contact' => $contact->name,
-            'prefix' => $contact->gender === 'Male' ? 'Bapak' : 'Ibu',
+            'contact' => isset($contact) ? $contact->name : '',
+            'prefix' => $prefix,
             'customer' => $q->customer->name,
             'address' => $q->customer->address,
             'title' => $q->title,

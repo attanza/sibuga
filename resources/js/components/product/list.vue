@@ -15,9 +15,8 @@
         <a :href="`/manage/products/${data.item.id}`">{{ data.value }}</a>
       </template>
 
-      <template
-        v-slot:cell(company_id)="data"
-      >{{ data.item.vendor ? data.item.vendor.name : data.value }}</template>
+      <template v-slot:cell(buy_price)="data">{{ currencyFormat(data.value) }}</template>
+      <template v-slot:cell(sell_price)="data">{{ currencyFormat(data.value) }}</template>
     </b-table>
     <hr />
     <tablePagination :pagination="pagination" @onChangePage="onChangePage"></tablePagination>
@@ -37,8 +36,10 @@ export default {
       fields: [
         { key: "code", sortable: true },
         { key: "name", sortable: true },
-        { key: "stock", sortable: true },
-        { key: "company_id", label: "Vendor", sortable: true }
+        { key: "buy_price", sortable: true },
+        { key: "sell_price", sortable: true },
+        { key: "lead_time", sortable: true },
+        { key: "weight", sortable: true }
       ]
     };
   },

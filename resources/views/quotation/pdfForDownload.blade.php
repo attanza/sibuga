@@ -47,7 +47,7 @@
         <section id="greeting" class="mt-3">
             <p>Dengan Hormat,</p>
             <p>
-                Melalui surat ini, kami bermaksud untuk maengajukan penawaran harga, adapun perincian
+                Melalui surat ini, kami bermaksud untuk mengajukan penawaran harga, adapun perincian
                 barang dan harganya adalah sebagai berikut:
             </p>
         </section>
@@ -59,12 +59,18 @@
                     <th>No</th>
                     <th>Nama Barang</th>
                     <th>Harga</th>
+                    <th>Qty</th>
+                    <th>Jumlah</th>
+                    <th>Keterangan</th>
                 </tr>
                 @foreach ($data['products'] as $product)
                 <tr>
                     <td>{{ $product['no'] }}</td>
                     <td>{{ $product['name'] }}</td>
                     <td>IDR {{ $product['price'] }}</td>
+                    <td>{{ $product['qty'] }}</td>
+                    <td>IDR {{$product['subTotal']}}</td>
+                    <td>{{ $product['note'] }}</td>
                 </tr>
                 @endforeach
             </table>

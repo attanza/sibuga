@@ -10,14 +10,18 @@ export default {
     },
 
     methods: {
-        async populateData() {
+        async populateData(customContainer = null) {
             try {
                 this.loading = true;
                 const queries = this.getQueries();
                 const resp = await axios
                     .get(this.link + queries)
                     .then(res => res.data);
-                this.items = resp.data;
+                if (customContainer) {
+                    this[customContainer] = resp.data;
+                } else {
+                    this.items = resp.data;
+                }
                 this.setPaginationData(resp);
                 this.loading = false;
             } catch (e) {

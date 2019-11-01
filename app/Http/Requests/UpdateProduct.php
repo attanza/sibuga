@@ -28,6 +28,10 @@ class UpdateProduct extends FormRequest
             'name' => 'required|string|max:100',
             'stock' => 'nullable|integer',
             'company_id' => 'required|string|exists:companies,id',
+            'weight' => 'nullable|number',
+            'lead_time' => 'nullable|numeric',
+            'buy_price' => 'nullable|number',
+            'sell_price' => 'nullable|number',
             'description' => 'nullable|string',
         ];
     }
