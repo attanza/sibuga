@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="container pt-5">
+    <div class="container pt-3">
         <table style="width: 100%;">
             <tr>
                 <td width="25%" valign="center">
@@ -27,7 +27,6 @@
             </tr>
         </table>
         <hr>
-
         <section id="to" class="mt-3">
             <p>
                 Kepada Yth,<br>
@@ -55,33 +54,41 @@
 
         <section id="products">
             <table class="table">
-                <tr>
-                    <th>No</th>
-                    <th>Nama Barang</th>
-                    <th>Harga</th>
-                    <th>Qty</th>
-                    <th>Jumlah</th>
-                    <th>Keterangan</th>
-                </tr>
-                @foreach ($data['products'] as $product)
-                <tr>
-                    <td>{{ $product['no'] }}</td>
-                    <td>{{ $product['name'] }}</td>
-                    <td>IDR {{ $product['price'] }}</td>
-                    <td>{{ $product['qty'] }}</td>
-                    <td>IDR {{$product['subTotal']}}</td>
-                    <td>{{ $product['note'] }}</td>
-                </tr>
-                @endforeach
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Barang</th>
+                        <th>Harga</th>
+                        <th>Qty</th>
+                        <th>Jumlah</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data['products'] as $product)
+                    <tr>
+                        <td>{{ $product['no'] }}</td>
+                        <td>{{ $product['name'] }}</td>
+                        <td>IDR {{ $product['price'] }}</td>
+                        <td>{{ $product['qty'] }}</td>
+                        <td>IDR {{$product['subTotal']}}</td>
+                        <td>{{ $product['note'] }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
             </table>
+            <hr>
+            <div class="d-flex justify-content-center">
+                <strong>Total: IDR {{ $data['totalProducts'] ?? '' }}</strong>
+            </div>
         </section>
         <hr>
-        <section id="footer" class="mt-5">
+        <section id=" footer" class="mt-5">
             <h6>Keterangan: </h6>
             {!! $data['footer'] !!}
         </section>
 
-        <section id="initiator" class="mt-3">
+        <section id="initiator" class="mt-5">
             <p>
                 Terimakasih atas perhatian dan kerjasamanya.
             </p>

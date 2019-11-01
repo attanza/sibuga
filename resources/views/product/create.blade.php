@@ -37,7 +37,7 @@
 <script>
     $(document).ready(function(){
         var now = Math.floor(Date.now() / 1000);
-  $('#code').val('SBG'+now)
-});
+        $('#code').val('SBGP'+now)
+    });
 </script>
 @endsection

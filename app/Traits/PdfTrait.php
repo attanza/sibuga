@@ -13,11 +13,10 @@ trait PdfTrait
     {
         $initialFooter = "
         <ul>
-<li>Harga termasuk ongkos kirim</li>
+        <li>Harga tidak termasuk ongkos kirim</li>
+        <li>Harga tidak termasuk PPN 10%</li>
 <li>Desain sesuai dengan permintaan dan dianggap fixed setelah PO (purchase order) disetujui</li>
 <li>Penambahan atau pengurangan permintaan oleh konsumen akan dikenakan penawaran baru</li>
-<li>Pembayaran dilakukan cash sebelum barang dikirimkan</li>
-<li>Harga sudah termasuk PPH 2% dan tidak termasuk PPN 10%</li>
 <li>Pembayaran dilakukan dengan cara transfer ke rekening:
 <table>
 <tbody>
@@ -54,22 +53,26 @@ trait PdfTrait
         $contact = Contact::find($request->contact_id);
         $products = [];
         $i = 1;
+        $totalProducts = 0;
         foreach ($q->products as $product) {
+            $subTotal = $product->qty * $product->price;
+            $totalProducts = $totalProducts + $subTotal;
             array_push($products, [
                 'no' => $i,
                 'name' => $product->product->name,
-                'price' => number_format($product->price),
+                'price' => number_format($product->price, 2, ',', '.'),
                 'qty' => $product->qty,
-                'subTotal' => number_format($product->qty * $product->price),
+                'subTotal' => number_format($subTotal, 2, ',', '.'),
                 'note' => $product->note
             ]);
             $i++;
         }
+
         $prefix = 'Bapak';
         if (isset($contact)) {
             $prefix = $contact->gender === 'Male' ? 'Bapak' : 'Ibu';
         }
-
+        
         $data = [
             'no' => $q->no,
             'location' => $request->location,
@@ -81,7 +84,8 @@ trait PdfTrait
             'title' => $q->title,
             'products' => $products,
             'footer' => $request->footer,
-            'initiator' => $request->initiator
+            'initiator' => $request->initiator,
+            'totalProducts' => number_format($totalProducts, 2, ',', '.')
         ];
         return view('quotation.pdfForDownload')->withData(collect($data));
     }
