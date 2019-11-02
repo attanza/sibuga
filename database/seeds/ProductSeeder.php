@@ -14,11 +14,11 @@ class ProductSeeder extends Seeder
     public function run()
     {
         Product::truncate();
-        $vendors = Company::where('category', 'Vendor')->pluck('id');
-        foreach ($vendors as $vendor) {
-            factory(Product::class, 2)->create([
-                'company_id' => $vendor
-            ]);
-        }
+        // $vendors = Company::where('category', 'Vendor')->pluck('id');
+        // foreach ($vendors as $vendor) {
+        //     factory(Product::class, 2)->create([
+        //         'company_id' => $vendor
+        //     ]);
+        // }
     }
 }
