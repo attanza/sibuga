@@ -16,8 +16,8 @@
       </template>
 
       <template
-        v-slot:cell(company_id)="data"
-      >{{ data.item.company ? data.item.company.name : data.value }}</template>
+        v-slot:cell(quotation_id)="data"
+      >{{ data.item.quotation && data.item.quotation.customer ? data.item.quotation.customer.name : data.value }}</template>
 
       <template v-slot:cell(amount)="data">{{ currencyFormat(data.value) }}</template>
     </b-table>
@@ -39,7 +39,7 @@ export default {
       fields: [
         { key: "code", sortable: true },
         { key: "title", sortable: true },
-        { key: "company_id", label: "Company", sortable: true },
+        { key: "quotation_id", label: "Company", sortable: true },
         { key: "amount", sortable: true },
         { key: "status", sortable: true }
       ]

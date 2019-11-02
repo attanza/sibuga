@@ -9,15 +9,15 @@ class Project extends Model
 {
     use Uuid;
 
-    protected $with = ['company'];
+    protected $with = ['quotation.customer'];
 
     protected $fillable = [
-        'company_id','code','title','start_date','end_date','status','terms','description','amount'
+        'quotation_id','code','title','start_date','end_date','status','terms','description','amount'
     ];
 
     protected $casts = [
         'id' => 'string',
-        'company_id'=>'string',
+        'quotation_id'=>'string',
         'code'=>'string',
         'title'=>'string',
         'start_date'=>'date',
@@ -28,8 +28,8 @@ class Project extends Model
         'amount' =>  'decimal:2'
     ];
 
-    public function company()
+    public function quotation()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Quotation::class);
     }
 }

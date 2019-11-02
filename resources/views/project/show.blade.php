@@ -21,21 +21,31 @@
 </div>
 
 <div class="content">
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-header">
-                <delete-button delete-url="/api/projects/{{ $data->id }}" back-url="/manage/projects">
-                </delete-button>
-            </div>
-            <div class="card-body">
-                <form method="POST" action="{{ route('projects.update', ['project' => $data->id])}}">
-                    @method('PUT')
-                    @csrf
-                    @include('layouts.form')
-                </form>
-            </div>
-        </div>
-    </div>
+    <b-card no-body>
+        <b-tabs pills card>
+            <b-tab title="Detail" active>
+                <b-card-text>
+                    <div class="d-flex justify-content-end mb-4">
+                        {{-- <a href="/manage/projects/{{ $data->id }}/pdf" class="btn btn-success">Generate PDF</a>
+                        --}}
+                        <delete-button delete-url="/api/projects/{{ $data->id }}" back-url="/manage/projects">
+                        </delete-button>
+                    </div>
+                    <form method="POST" action="{{ route('projects.update', ['project' => $data->id])}}">
+                        @method('PUT')
+                        @csrf
+                        @include('layouts.form')
+                    </form>
+                </b-card-text>
+            </b-tab>
+            <b-tab title="Products">
+                <b-card-text>
+                    <project-products :products="{{ $data->quotation->products }}">
+                        </projects-products>
+                </b-card-text>
+            </b-tab>
+        </b-tabs>
+    </b-card>
 </div>
 @endsection
 

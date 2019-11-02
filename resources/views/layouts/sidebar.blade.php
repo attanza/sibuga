@@ -64,24 +64,6 @@
                         </p>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a href="/manage/product-prices"
-                        class="nav-link {{ (request()->is('manage/product-prices*')) ? 'active' : '' }}">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                    Product Prices
-                </p>
-                </a>
-                </li> --}}
-                <li class="nav-item">
-                    <a href="/manage/projects"
-                        class="nav-link {{ (request()->is('manage/projects*')) ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-cubes"></i>
-                        <p>
-                            Projects
-                        </p>
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a href="/manage/quotations"
                         class="nav-link {{ (request()->is('manage/quotations*')) ? 'active' : '' }}">
@@ -91,16 +73,17 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="/manage/projects"
+                        class="nav-link {{ (request()->is('manage/projects*')) ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-cubes"></i>
+                        <p>
+                            Projects
+                        </p>
+                    </a>
+                </li>
 
-                {{-- <li class="nav-item">
-                    <a href="/manage/quotation-products"
-                        class="nav-link {{ (request()->is('manage/quotation-products*')) ? 'active' : '' }}">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                    Quotation Products
-                </p>
-                </a>
-                </li> --}}
+
             </ul>
         </nav>
     </div>

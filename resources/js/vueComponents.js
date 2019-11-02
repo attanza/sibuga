@@ -36,6 +36,10 @@ Vue.component("product-list", require("./components/product/list.vue").default);
  * Project
  */
 Vue.component("project-list", require("./components/project/list.vue").default);
+Vue.component(
+    "project-products",
+    require("./components/project/products.vue").default
+);
 
 /**
  * Quotation

@@ -24,7 +24,7 @@ class UpdateProject extends FormRequest
     public function rules()
     {
         return [
-            'company_id'=>'required|string|exists:companies,id',
+            'quotation_id'=>'required|string|exists:quotations,id',
             'code'=>'required|string|unique:projects,code,'.$this->project,
             'title'=>'required|string|max:100',
             'start_date'=>'nullable|date',

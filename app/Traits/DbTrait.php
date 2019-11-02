@@ -127,14 +127,14 @@ trait DbTrait
         return $data;
     }
 
-    public function getComboData($modelName, $where = [], $redisKey = '', $key = 'name')
+    public function getComboData($modelName, $where = [], $redisKey = '', $key = 'name', $orderBy = null, $orderMode = null)
     {
         $Model = $this->getModel($modelName);
 
-        return Cache::remember($modelName . '_Combo_' . $redisKey, now()->addMinutes(30), function () use ($Model, $where, $key) {
+        return Cache::remember($modelName . '_Combo_' . $redisKey, now()->addMinutes(30), function () use ($Model, $where, $key, $orderBy, $orderMode) {
             return $Model::select('id', $key)->where(function ($q) use ($where) {
                 $q->where($where);
-            })->orderBy($key)->get();
+            })->orderBy($orderBy ?? $key, $orderMode ?? 'asc')->get();
         });
     }
 

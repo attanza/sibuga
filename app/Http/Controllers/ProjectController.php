@@ -10,7 +10,7 @@ class ProjectController extends Controller
 {
     use DbTrait;
 
-    protected $searchable = ['company_id','code','title','status', 'amount'];
+    protected $searchable = ['quotation_id','code','title','status', 'amount'];
 
     public function index()
     {
@@ -36,6 +36,7 @@ class ProjectController extends Controller
     public function show($id)
     {
         $data = $this->dbGetById($id, 'Project');
+        $data->loadMissing('quotation.products.product');
         return view('project.show')->with([
             'data' => $data,
             'fields' => $this->getFields()
@@ -56,7 +57,14 @@ class ProjectController extends Controller
 
     protected function getFields()
     {
-        $companies = $this->getComboData('Company', ['category' => 'Customer'], 'combo_customer', 'name');
+        $quotations = $this->getComboData('Quotation', [], 'quotation_combo_created_at_desc', 'no', 'created_at', 'desc');
+        $quotationArray = [];
+        foreach ($quotations as $q) {
+            array_push($quotationArray, [
+                'id' => $q->id,
+                'name' => $q->no
+            ]);
+        }
         $statuses = ['new', 'purchasing', 'delivery', 'completed', 'cancel'];
         $status = [];
         foreach ($statuses as $s) {
@@ -67,7 +75,7 @@ class ProjectController extends Controller
         }
 
         return [
-            [ 'key' => 'company_id', 'caption' => 'Company', 'htmlElement' => 'select', 'selectValue' => $companies],
+            [ 'key' => 'quotation_id', 'caption' => 'Quotation', 'htmlElement' => 'select', 'selectValue' => $quotationArray],
             [ 'key' => 'code', 'caption' => 'Code', 'htmlElement' => 'text', 'type' => 'text' ],
             [ 'key' => 'title', 'caption' => 'Title', 'htmlElement' => 'text', 'type' => 'text' ],
             [ 'key' => 'start_date', 'caption' => 'Start Date', 'htmlElement' => 'text' , 'type' => 'text' ],
