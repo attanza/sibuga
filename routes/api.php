@@ -63,4 +63,10 @@ Route::middleware(['auth:api'])->group(function () {
      */
     Route::get('/users', 'UserController@list');
     Route::delete('/users/{id}', 'UserController@destroy');
+
+    /**
+     * Expences
+     */
+    Route::get('/expenses', 'ExpenseController@list');
+    Route::delete('/expenses/{id}', 'ExpenseController@destroy');
 });

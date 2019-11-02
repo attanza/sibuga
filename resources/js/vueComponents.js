@@ -63,4 +63,14 @@ Vue.component(
  * Picture
  */
 Vue.component("picture-list", require("./components/picture/list.vue").default);
+
+/**
+ * User
+ */
 Vue.component("user-list", require("./components/user/list.vue").default);
+
+/**
+ * Expense
+ */
+
+Vue.component("expense-list", require("./components/expense/list.vue").default);

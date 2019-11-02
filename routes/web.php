@@ -23,4 +23,5 @@ Route::middleware('auth')->prefix('manage')->group(function () {
     Route::post('/quotations/{id}/pdf', 'QuotationController@generatePdf');
     Route::resource('quotation-products', 'QuotationProductController')->except(['destroy', 'edit']);
     Route::resource('users', 'UserController')->except(['destroy', 'edit']);
+    Route::resource('expenses', 'ExpenseController')->except(['destroy', 'edit']);
 });

@@ -15,8 +15,8 @@ class CreateQuotationProductsTable extends Migration
     {
         Schema::create('quotation_products', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('quotation_id')->index();
-            $table->string('product_id')->index();
+            $table->uuid('quotation_id')->index();
+            $table->uuid('product_id')->index();
             $table->integer('qty');
             $table->decimal('price', 10, 2);
             $table->string('picture')->nullable();

@@ -15,7 +15,7 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('quotation_id')->index();
+            $table->uuid('quotation_id')->index();
             $table->string('code', 20)->unique();
             $table->string('title', 100);
             $table->date('start_date')->nullable();

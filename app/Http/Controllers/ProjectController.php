@@ -57,7 +57,7 @@ class ProjectController extends Controller
 
     protected function getFields()
     {
-        $quotations = $this->getComboData('Quotation', [], 'quotation_combo_created_at_desc', 'no', 'created_at', 'desc');
+        $quotations = $this->getComboData('Quotation', [], 'combo_created_at_desc', 'no', 'created_at', 'desc');
         $quotationArray = [];
         foreach ($quotations as $q) {
             array_push($quotationArray, [

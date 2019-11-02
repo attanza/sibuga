@@ -82,7 +82,15 @@
                         </p>
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a href="/manage/expenses"
+                        class="nav-link {{ (request()->is('manage/expenses*')) ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-dollar-sign"></i>
+                        <p>
+                            Expenses
+                        </p>
+                    </a>
+                </li>
 
             </ul>
         </nav>

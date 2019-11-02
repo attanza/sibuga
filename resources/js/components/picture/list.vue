@@ -104,7 +104,6 @@ export default {
         const resp = await axios
           .delete(`${this.link}/${id}`)
           .then(res => res.data);
-        console.log("resp", resp);
         const index = this.items.findIndex(i => i.id === id);
         if (index != -1) {
           this.items.splice(index, 1);
