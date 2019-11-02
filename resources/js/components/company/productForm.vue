@@ -19,8 +19,24 @@
             <b-form-input id="name" v-model="form.name" type="text" required></b-form-input>
           </b-form-group>
 
+          <b-form-group label="Buy Price" label-for="buy_price">
+            <b-form-input id="buy_price" v-model="form.buy_price" type="number"></b-form-input>
+          </b-form-group>
+
+          <b-form-group label="Sell Price" label-for="sell_price">
+            <b-form-input id="sell_price" v-model="form.sell_price" type="number"></b-form-input>
+          </b-form-group>
+
+          <b-form-group label="Weight" label-for="weight">
+            <b-form-input id="weight" v-model="form.weight" type="number"></b-form-input>
+          </b-form-group>
+
           <b-form-group label="Stock" label-for="stock">
             <b-form-input id="stock" v-model="form.stock" type="number"></b-form-input>
+          </b-form-group>
+
+          <b-form-group label="Lead Time" label-for="lead_time">
+            <b-form-input id="lead_time" v-model="form.lead_time" type="number"></b-form-input>
           </b-form-group>
 
           <b-form-group label="Description" label-for="description">
@@ -44,9 +60,14 @@ export default {
       modalShow: false,
       url: "/api/products",
       form: {
-        name: "",
+        company_id: "",
         code: "",
+        name: "",
+        buy_price: "",
+        sell_price: "",
         stock: "",
+        weight: "",
+        lead_time: "",
         description: ""
       },
       loading: false

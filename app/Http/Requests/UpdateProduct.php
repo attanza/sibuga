@@ -26,12 +26,12 @@ class UpdateProduct extends FormRequest
         return [
             'code' => 'required|string|max:20|unique:products,code,'.$this->product,
             'name' => 'required|string|max:100',
-            'stock' => 'nullable|integer',
+            'stock' => 'required|integer',
+            'weight' => 'required|numeric',
+            'lead_time' => 'required|numeric',
+            'buy_price' => 'required|numeric',
+            'sell_price' => 'required|numeric',
             'company_id' => 'required|string|exists:companies,id',
-            'weight' => 'nullable|number',
-            'lead_time' => 'nullable|numeric',
-            'buy_price' => 'nullable|number',
-            'sell_price' => 'nullable|number',
             'description' => 'nullable|string',
         ];
     }

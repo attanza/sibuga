@@ -46,7 +46,8 @@ export default {
       fields: [
         { key: "code", sortable: true },
         { key: "name", sortable: true },
-        { key: "stock", sortable: true },
+        { key: "buy_price", sortable: true },
+        { key: "sell_price", sortable: true },
         { key: "edit", sortable: false }
       ],
       products: [],

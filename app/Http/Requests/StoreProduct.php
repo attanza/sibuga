@@ -26,11 +26,11 @@ class StoreProduct extends FormRequest
         return [
             'code' => 'required|string|max:20|unique:products',
             'name' => 'required|string|max:100',
-            'stock' => 'nullable|integer',
-            'weight' => 'nullable|numeric',
-            'lead_time' => 'nullable|numeric',
-            'buy_price' => 'nullable|numeric',
-            'sell_price' => 'nullable|numeric',
+            'stock' => 'required|integer',
+            'weight' => 'required|numeric',
+            'lead_time' => 'required|numeric',
+            'buy_price' => 'required|numeric',
+            'sell_price' => 'required|numeric',
             'company_id' => 'required|string|exists:companies,id',
             'description' => 'nullable|string',
         ];
