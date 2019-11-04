@@ -16,6 +16,7 @@
           :options="dropzoneOptions"
           v-on:vdropzone-sending="sendingEvent"
           v-on:vdropzone-success="dropzoneSuccess"
+          v-on:vdropzone-error="dropzoneError"
           destroyDropzone
         ></vue-dropzone>
       </div>
@@ -62,6 +63,13 @@ export default {
     dropzoneSuccess(file, response) {
       this.onReset();
       this.$emit("onAdd", response);
+    },
+    dropzoneError(file, message, xhr) {
+      this.$bvToast.toast(message, {
+        title: "Error",
+        variant: "danger",
+        solid: true
+      });
     },
     close() {
       this.$emit("onClose");
