@@ -12,7 +12,7 @@ class Expense extends Model
     protected $with = ['project'];
 
     protected $fillable = [
-        'project_id','item','amount', 'description'
+        'project_id','item','amount', 'description', 'code'
     ];
 
     protected $casts = [

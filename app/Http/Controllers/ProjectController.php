@@ -3,8 +3,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProject;
 use App\Http\Requests\UpdateProject;
+use App\Models\Project;
+use App\Models\Quotation;
 use App\Traits\DbTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ProjectController extends Controller
 {
@@ -24,7 +27,8 @@ class ProjectController extends Controller
 
     public function create()
     {
-        return view('project.create')->with(['fields' => $this->getFields()]);
+        $fields = $this->getFields();
+        return view('project.create')->with(['fields' => $fields]);
     }
 
     public function store(StoreProject $request)
@@ -51,20 +55,31 @@ class ProjectController extends Controller
 
     public function destroy($id)
     {
-        $this->dbDelete($id, 'Project');
+        $data = Project::findOrFail($id);
+        if (isset($data->project)) {
+            return response()->json("Quotation cannot be deleted", 400);
+        }
+        $this->dbDelete($id, 'Project', $data);
         return ['message' => 'Project deleted'];
     }
 
     protected function getFields()
     {
-        $quotations = $this->getComboData('Quotation', [], 'combo_created_at_desc', 'no', 'created_at', 'desc');
+        // $quotations = $this->getComboData('Quotation', [], 'combo_created_at_desc', 'no', 'created_at', 'desc');
+        $quotations = Quotation::select('id', 'no')
+        ->whereDoesntHave('project')
+        ->orderBy('created_at', 'desc')->get();
+
         $quotationArray = [];
-        foreach ($quotations as $q) {
-            array_push($quotationArray, [
-                'id' => $q->id,
-                'name' => $q->no
-            ]);
+        if (isset($quotations) && count($quotations) > 0) {
+            foreach ($quotations as $q) {
+                array_push($quotationArray, [
+                    'id' => $q['id'],
+                    'name' => $q['no'],
+                ]);
+            }
         }
+        
         $statuses = ['new', 'purchasing', 'delivery', 'completed', 'cancel'];
         $status = [];
         foreach ($statuses as $s) {

@@ -34,4 +34,9 @@ class Quotation extends Model
     {
         return $this->hasMany(QuotationProduct::class);
     }
+
+    public function project()
+    {
+        return $this->hasOne(Project::class);
+    }
 }

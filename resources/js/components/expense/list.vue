@@ -11,9 +11,13 @@
       primary-key="id"
       :busy="loading"
     >
-      <template v-slot:cell(project_id)="data">
-        <a :href="`/manage/expenses/${data.item.id}`">{{ data.item.project.code || data.value }}</a>
+      <template v-slot:cell(code)="data">
+        <a :href="`/manage/expenses/${data.item.id}`">{{ data.value }}</a>
       </template>
+
+      <template
+        v-slot:cell(project_id)="data"
+      >{{ data.item.project ? data.item.project.code : data.value }}</template>
     </b-table>
     <hr />
     <tablePagination :pagination="pagination" @onChangePage="onChangePage"></tablePagination>
@@ -31,7 +35,8 @@ export default {
       link: "/api/expenses",
       createLink: "/manage/expenses/create",
       fields: [
-        { key: "project_id", lable: "Project", sortable: true },
+        { key: "code", sortable: true },
+        { key: "project_id", label: "Project", sortable: true },
         { key: "item", sortable: true },
         { key: "amount", sortable: true }
       ]

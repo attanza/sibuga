@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuotation;
 use App\Http\Requests\UpdateQuotation;
+use App\Models\Quotation;
 use App\Traits\DbTrait;
 use App\Traits\PdfTrait;
 use App\User;
@@ -68,7 +69,11 @@ class QuotationController extends Controller
 
     public function destroy($id)
     {
-        $this->dbDelete($id, 'Quotation');
+        $data = Quotation::findOrFail($id);
+        if (isset($data->project)) {
+            return response()->json("Quotation cannot be deleted", 400);
+        }
+        $this->dbDelete($id, 'Quotation', $data);
         return ['message' => 'Quotation deleted'];
     }
 

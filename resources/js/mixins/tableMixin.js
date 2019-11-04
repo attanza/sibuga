@@ -30,16 +30,23 @@ export default {
             }
         },
         getQueries() {
+            this.pagination.pictureableId = this.pictureableId;
+            this.pagination.pictureableType = this.pictureableType;
+
             const {
                 current_page,
                 per_page,
                 search,
                 filterBy,
-                filterValue
+                filterValue,
+                pictureableId,
+                pictureableType
             } = this.pagination;
             return `?page=${current_page || 1}&perPage=${per_page ||
                 10}&search=${search || ""}&filterBy=${filterBy ||
-                ""}&filterValue=${filterValue || ""}`;
+                ""}&filterValue=${filterValue ||
+                ""}&pictureableId=${pictureableId ||
+                ""}&pictureableType=${pictureableType || ""}`;
         },
         setPaginationData(data) {
             this.pagination = data;

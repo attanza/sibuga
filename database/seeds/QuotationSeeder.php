@@ -14,11 +14,11 @@ class QuotationSeeder extends Seeder
     public function run()
     {
         Quotation::truncate();
-        // $customers = Company::where('category', 'Customer')->pluck('id');
-        // foreach ($customers as $customer) {
-        //     factory(Quotation::class, 1)->create([
-        //         'company_id' => $customer
-        //     ]);
-        // }
+        $customers = Company::where('category', 'Customer')->pluck('id');
+        foreach ($customers as $customer) {
+            factory(Quotation::class, 1)->create([
+                'company_id' => $customer
+            ]);
+        }
     }
 }

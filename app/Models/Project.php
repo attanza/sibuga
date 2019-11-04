@@ -32,4 +32,9 @@ class Project extends Model
     {
         return $this->belongsTo(Quotation::class);
     }
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
 }

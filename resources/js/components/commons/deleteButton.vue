@@ -38,7 +38,13 @@ export default {
         const resp = await axios.delete(this.deleteUrl);
         window.location.href = this.backUrl;
       } catch (e) {
-        console.log("e", e);
+        if (e.response.status === 400) {
+          this.$bvToast.toast(e.response.data, {
+            title: "Delete Failed",
+            autoHideDelay: 5000,
+            variant: "danger"
+          });
+        }
       }
     }
   }

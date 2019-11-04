@@ -35,7 +35,10 @@ class PictureController extends Controller
             $constraint->aspectRatio();
         })->save(storage_path($folder).$mainFileName);
 
-        $request->merge(['url' => $lowerCasePluralModelName.'/'.$mainFileName]);
+        $request->merge([
+            'url' => $lowerCasePluralModelName.'/'.$mainFileName,
+            'pictureable_type' => $this->getModel($request->pictureable_type),
+        ]);
         $data = $this->dbStore($request, 'Picture');
         return $data;
     }

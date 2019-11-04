@@ -29,6 +29,10 @@ class ExpenseController extends Controller
 
     public function store(StoreExpense $request)
     {
+        $request->merge([
+            'code' => 'SBGEXP'. time(),
+        ]);
+
         $this->dbStore($request, 'Expense');
         return redirect()->route('expenses.index');
     }

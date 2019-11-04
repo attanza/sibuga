@@ -60,7 +60,6 @@ export default {
       formData.append("pictureable_type", this.pictureableType);
     },
     dropzoneSuccess(file, response) {
-      console.log("response", response);
       this.onReset();
       this.$emit("onAdd", response);
     },

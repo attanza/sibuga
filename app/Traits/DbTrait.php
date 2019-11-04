@@ -11,7 +11,7 @@ trait DbTrait
         extract($this->getQueries($request));
         $search = $request->query('search') ? $request->query('search') : '';
 
-        $redisKey = $this->getRedisKey($this->getQueries($request));
+        $redisKey = $modelName.'_'.$this->getRedisKey($this->getQueries($request));
         if ($search == '') {
             $data = Cache::tags([$modelName])->get($redisKey);
             if ($data != null) {
@@ -118,10 +118,12 @@ trait DbTrait
         return $data;
     }
 
-    public function dbDelete($id, $modelName)
+    public function dbDelete($id, $modelName, $data = null)
     {
         $Model = $this->getModel($modelName);
-        $data = $Model::findOrFail($id);
+        if (!isset($data)) {
+            $data = $Model::findOrFail($id);
+        }
         $data->delete();
         Cache::tags($modelName)->flush();
         return $data;
@@ -130,12 +132,15 @@ trait DbTrait
     public function getComboData($modelName, $where = [], $redisKey = '', $key = 'name', $orderBy = null, $orderMode = null)
     {
         $Model = $this->getModel($modelName);
-
-        return Cache::remember($modelName . '_Combo_' . $redisKey, now()->addMinutes(30), function () use ($Model, $where, $key, $orderBy, $orderMode) {
-            return $Model::select('id', $key)->where(function ($q) use ($where) {
-                $q->where($where);
-            })->orderBy($orderBy ?? $key, $orderMode ?? 'asc')->get();
-        });
+        $data = Cache::tags([$modelName])->get($redisKey);
+        if ($data != null) {
+            return $data;
+        }
+        $data = $Model::select('id', $key)->where(function ($q) use ($where) {
+            $q->where($where);
+        })->orderBy($orderBy ?? $key, $orderMode ?? 'asc')->get();
+        Cache::tags([$modelName])->put($redisKey, $data, now()->addMinutes(30));
+        return $data;
     }
 
     protected function getQueries($request)
@@ -166,7 +171,7 @@ trait DbTrait
         if ($modelName === 'User') {
             return "App\User";
         } else {
-            return "App\Models\\$modelName";
+            return 'App\Models\\' .$modelName;
         }
     }
 

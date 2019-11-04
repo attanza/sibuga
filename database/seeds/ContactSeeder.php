@@ -14,11 +14,11 @@ class ContactSeeder extends Seeder
     public function run()
     {
         Contact::truncate();
-        // $customers = Company::all();
-        // foreach ($customers as $customer) {
-        //     factory(Contact::class, 2)->create([
-        //         'company_id' => $customer->id
-        //     ]);
-        // }
+        $customers = Company::all();
+        foreach ($customers as $customer) {
+            factory(Contact::class, 2)->create([
+                'company_id' => $customer->id
+            ]);
+        }
     }
 }
