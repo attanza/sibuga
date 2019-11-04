@@ -26,7 +26,7 @@ class StorePicture extends FormRequest
         return [
             'pictureable_id' => 'required',
             'pictureable_type' => 'required',
-            'file' => 'required|file|size:10000'
+            'file' => 'required|file|max:10000'
         ];
     }
 }

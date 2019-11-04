@@ -22,6 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProjectSeeder::class);
         $this->call(QuotationSeeder::class);
         $this->call(QuotationProductSeeder::class);
-        $this->call(ExpenseSeeder::class);
+        // $this->call(ExpenseSeeder::class);
     }
 }
