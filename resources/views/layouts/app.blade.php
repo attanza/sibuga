@@ -22,12 +22,7 @@
         @include('layouts.sidebar')
 
         <div class="content-wrapper">
-
-            <div class="content">
-                <div class="container-fluid">
-                    @yield('content')
-                </div>
-            </div>
+            @yield('content')
         </div>
 
         <aside class="control-sidebar control-sidebar-dark">
@@ -36,14 +31,6 @@
                 <p>Sidebar content</p>
             </div>
         </aside>
-
-        <footer class="main-footer">
-            <div class="float-right d-none d-sm-inline">
-                Anything you want
-            </div>
-            <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
-            reserved.
-        </footer>
     </div>
     <script src="{{ url('js/app.js') }}"></script>
     @yield('scripts')
