@@ -27,7 +27,7 @@
             <b-form-input id="sell_price" v-model="form.sell_price" type="number"></b-form-input>
           </b-form-group>
 
-          <b-form-group label="Weight" label-for="weight">
+          <b-form-group label="Weight (gr)" label-for="weight">
             <b-form-input id="weight" v-model="form.weight" type="number"></b-form-input>
           </b-form-group>
 

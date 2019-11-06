@@ -82,7 +82,7 @@ class ProductController extends Controller
             ['key' => 'buy_price', 'caption' => 'Buy Price', 'htmlElement' => 'text', 'type' => 'number'],
             ['key' => 'sell_price', 'caption' => 'Sell Price', 'htmlElement' => 'text', 'type' => 'number'],
             ['key' => 'stock', 'caption' => 'Stock', 'htmlElement' => 'text', 'type' => 'text'],
-            ['key' => 'weight', 'caption' => 'Weight', 'htmlElement' => 'text', 'type' => 'number'],
+            ['key' => 'weight', 'caption' => 'Weight (gr)', 'htmlElement' => 'text', 'type' => 'number'],
             ['key' => 'lead_time', 'caption' => 'Lead Time', 'htmlElement' => 'text', 'type' => 'number'],
             ['key' => 'description', 'caption' => 'Description', 'htmlElement' => 'text', 'type' => 'text'],
         ];
