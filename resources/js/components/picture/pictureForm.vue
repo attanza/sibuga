@@ -40,7 +40,7 @@ export default {
       dropzoneOptions: {
         url: "/api/pictures",
         thumbnailWidth: 150,
-        maxFilesize: 0.5,
+        maxFilesize: 10,
         headers: {
           "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
         },
@@ -65,6 +65,8 @@ export default {
       this.$emit("onAdd", response);
     },
     dropzoneError(file, message, xhr) {
+      console.log("message", message);
+      console.log("xhr", xhr);
       this.$bvToast.toast(message, {
         title: "Error",
         variant: "danger",
