@@ -10,7 +10,7 @@ class Picture extends Model
 {
     use Uuid;
 
-    protected $fillable = ['caption', 'pictureable_id', 'url','pictureable_type', 'description'];
+    protected $fillable = ['caption', 'pictureable_id', 'url','pictureable_type', 'description', 'is_feature'];
 
     public function pictureable()
     {

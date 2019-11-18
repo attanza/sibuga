@@ -59,8 +59,6 @@
                         <th>No</th>
                         <th>Nama Barang</th>
                         <th>Harga</th>
-                        <th>Qty</th>
-                        <th>Jumlah</th>
                         <th>Keterangan</th>
                     </tr>
                 </thead>
@@ -70,17 +68,11 @@
                         <td>{{ $product['no'] }}</td>
                         <td>{{ $product['name'] }}</td>
                         <td>IDR {{ $product['price'] }}</td>
-                        <td>{{ $product['qty'] }}</td>
-                        <td>IDR {{$product['subTotal']}}</td>
                         <td>{{ $product['note'] }}</td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-            <hr>
-            <div class="d-flex justify-content-center">
-                <strong>Total: IDR {{ $data['totalProducts'] ?? '' }}</strong>
-            </div>
         </section>
         <hr>
         <section id=" footer" class="mt-5">

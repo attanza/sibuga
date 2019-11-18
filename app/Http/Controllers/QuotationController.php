@@ -9,6 +9,7 @@ use App\Traits\PdfTrait;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class QuotationController extends Controller
@@ -34,6 +35,7 @@ class QuotationController extends Controller
 
     public function store(StoreQuotation $request)
     {
+        $request->merge(['created_by' => Auth::id()]);
         $this->dbStore($request, 'Quotation');
         return redirect()->route('quotations.index');
     }
@@ -83,7 +85,7 @@ class QuotationController extends Controller
 
         return [
             [ 'key' => 'no', 'caption' => 'No', 'htmlElement' => 'text', 'type' => 'text' ],
-            [ 'key' => 'company_id', 'caption' => 'Company', 'htmlElement' => 'select', 'selectValue' => $companies ],
+            [ 'key' => 'company_id', 'caption' => 'Customer', 'htmlElement' => 'select', 'selectValue' => $companies ],
             [ 'key' => 'title', 'caption' => 'Title', 'htmlElement' => 'text', 'type' => 'text' ],
             [ 'key' => 'terms', 'caption' => 'Terms', 'htmlElement' => 'textarea' ],
             [ 'key' => 'description', 'caption' => 'Description', 'htmlElement' => 'textarea' ],

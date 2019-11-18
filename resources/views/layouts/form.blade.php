@@ -1,6 +1,7 @@
 @foreach ($fields as $item)
 <div class="form-group">
     <label for="{{ $item['key'] }}">{{ $item['caption'] }}</label>
+
     @if ($item['htmlElement'] === 'text')
     <input type="{{ $item['type'] }}" class="form-control @error($item['key']) is-invalid @enderror"
         name="{{ $item['key'] }}" id="{{ $item['key'] }}"
@@ -19,6 +20,11 @@
     </select>
     @endif
 
+    @if ($item['htmlElement'] === 'checkbox')
+    <input type="checkbox" class="form-check-input ml-3" name="{{ $item['key'] }}" id="{{ $item['key'] }}"
+        {{  isset($data) && $data[$item['key']] ? 'checked' : '' }}>
+    @endif
+
     @if ($item['htmlElement'] === 'textarea')
     <textarea class="form-control @error($item['key']) is-invalid @enderror" name="{{ $item['key'] }}"
         id="{{ $item['key'] }}">{{ isset($data) ? $data[$item['key']] : old($item['key']) }}
@@ -32,6 +38,7 @@
     @enderror
 </div>
 @endforeach
+
 <div class="float-right">
     <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
     <button type="submit" class="btn btn-primary">Submit</button>

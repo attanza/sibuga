@@ -12,7 +12,7 @@ class Product extends Model
     protected $with = ['vendor'];
 
     protected $fillable = [
-        'name', 'stock', 'company_id', 'description', 'code', 'weight', 'buy_price', 'sell_price', 'lead_time'
+        'name', 'stock', 'company_id', 'description', 'code', 'weight', 'buy_price', 'sell_price', 'lead_time', 'is_publish'
     ];
 
     protected $casts = [
@@ -26,6 +26,7 @@ class Product extends Model
         'buy_price' => 'decimal:2',
         'sell_price' => 'decimal:2',
         'description' => 'string',
+        'is_publish' => 'boolean'
 
     ];
 

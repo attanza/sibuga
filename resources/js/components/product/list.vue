@@ -39,7 +39,7 @@ export default {
         { key: "buy_price", sortable: true },
         { key: "sell_price", sortable: true },
         { key: "lead_time", sortable: true },
-        { key: "weight", sortable: true }
+        { key: "weight", label: "Weight (gr)", sortable: true }
       ]
     };
   },

@@ -53,17 +53,13 @@ trait PdfTrait
         $contact = Contact::find($request->contact_id);
         $products = [];
         $i = 1;
-        $totalProducts = 0;
         foreach ($q->products as $product) {
-            $subTotal = $product->qty * $product->price;
-            $totalProducts = $totalProducts + $subTotal;
             array_push($products, [
                 'no' => $i,
                 'name' => $product->product->name,
                 'price' => number_format($product->price, 2, ',', '.'),
-                'qty' => $product->qty,
-                'subTotal' => number_format($subTotal, 2, ',', '.'),
-                'note' => $product->note
+                'note' => $product->note,
+                'picture' => $product->product->pictures[0]->url
             ]);
             $i++;
         }
@@ -72,7 +68,7 @@ trait PdfTrait
         if (isset($contact)) {
             $prefix = $contact->gender === 'Male' ? 'Bapak' : 'Ibu';
         }
-        
+
         $data = [
             'no' => $q->no,
             'location' => $request->location,
@@ -85,7 +81,6 @@ trait PdfTrait
             'products' => $products,
             'footer' => $request->footer,
             'initiator' => $request->initiator,
-            'totalProducts' => number_format($totalProducts, 2, ',', '.')
         ];
         return view('quotation.pdfForDownload')->withData(collect($data));
     }

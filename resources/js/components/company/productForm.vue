@@ -39,6 +39,10 @@
             <b-form-input id="lead_time" v-model="form.lead_time" type="number"></b-form-input>
           </b-form-group>
 
+          <b-form-group>
+            <b-form-checkbox id="is_publish" v-model="form.is_publish">Publish</b-form-checkbox>
+          </b-form-group>
+
           <b-form-group label="Description" label-for="description">
             <b-form-textarea v-model="form.description"></b-form-textarea>
           </b-form-group>
@@ -68,6 +72,7 @@ export default {
         stock: "",
         weight: "",
         lead_time: "",
+        is_publish: false,
         description: ""
       },
       loading: false

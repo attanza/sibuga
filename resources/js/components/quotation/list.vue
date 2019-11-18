@@ -18,6 +18,10 @@
       <template
         v-slot:cell(company_id)="data"
       >{{ data.item.customer ? data.item.customer.name : data.value }}</template>
+
+      <template
+        v-slot:cell(created_by)="data"
+      >{{ data.item.creator ? data.item.creator.name : data.value }}</template>
     </b-table>
     <hr />
     <tablePagination :pagination="pagination" @onChangePage="onChangePage"></tablePagination>
@@ -37,7 +41,8 @@ export default {
       fields: [
         { key: "no", sortable: true },
         { key: "company_id", label: "Customer", sortable: true },
-        { key: "title", sortable: true }
+        { key: "title", sortable: true },
+        { key: "created_by", label: "Creator", sortable: true }
       ]
     };
   },

@@ -18,6 +18,10 @@
             <b-form-input id="caption" v-model="form.caption" type="text"></b-form-input>
           </b-form-group>
 
+          <b-form-group>
+            <b-form-checkbox id="is_feature" v-model="form.is_feature">Make Feature ?</b-form-checkbox>
+          </b-form-group>
+
           <b-form-group label="Description" label-for="description">
             <b-form-textarea id="description" v-model="form.description"></b-form-textarea>
           </b-form-group>
@@ -46,6 +50,7 @@ export default {
       url: "/api/pictures",
       form: {
         caption: "",
+        is_feature: "",
         description: ""
       },
       loading: false,

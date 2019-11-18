@@ -3,21 +3,23 @@
 namespace App\Models;
 
 use App\Traits\Uuid;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Quotation extends Model
 {
     use Uuid;
 
-    protected $with = ['customer'];
+    protected $with = ['customer', 'creator'];
 
     protected $fillable = [
-        'company_id','no','title','terms','description',
+        'company_id','no','title','terms','description', 'created_by',
     ];
 
     protected $casts = [
         'id' => 'string',
         'company_id'=>'string',
+        'created_by'=>'string',
         'no'=>'string',
         'title'=>'string',
         'terms'=>'string',
@@ -38,5 +40,10 @@ class Quotation extends Model
     public function project()
     {
         return $this->hasOne(Project::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

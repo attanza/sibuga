@@ -31,6 +31,12 @@ class ProductController extends Controller
 
     public function store(StoreProduct $request)
     {
+        if ($request->has('is_publish')) {
+            $request->merge(['is_publish' => true]);
+        } else {
+            $request->merge(['is_publish' => false]);
+        }
+
         $data = $this->dbStore($request, 'Product');
         if ($request->ajax()) {
             return $data;
@@ -49,6 +55,12 @@ class ProductController extends Controller
 
     public function update(UpdateProduct $request, $id)
     {
+        if ($request->has('is_publish')) {
+            $request->merge(['is_publish' => true]);
+        } else {
+            $request->merge(['is_publish' => false]);
+        }
+
         $data = $this->dbUpdate($request, $id, 'Product');
         if ($request->ajax()) {
             return $data;
@@ -84,6 +96,7 @@ class ProductController extends Controller
             ['key' => 'stock', 'caption' => 'Stock', 'htmlElement' => 'text', 'type' => 'text'],
             ['key' => 'weight', 'caption' => 'Weight (gr)', 'htmlElement' => 'text', 'type' => 'number'],
             ['key' => 'lead_time', 'caption' => 'Lead Time', 'htmlElement' => 'text', 'type' => 'number'],
+            ['key' => 'is_publish', 'caption' => 'Publish ?', 'htmlElement' => 'checkbox'],
             ['key' => 'description', 'caption' => 'Description', 'htmlElement' => 'text', 'type' => 'text'],
         ];
     }

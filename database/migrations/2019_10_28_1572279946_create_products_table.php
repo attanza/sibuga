@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->decimal('buy_price', 10, 2);
             $table->decimal('sell_price', 10, 2);
             $table->integer('lead_time')->nullable();
+            $table->boolean('is_publish')->default(true);
             $table->text('description')->nullable();
             $table->timestamps();
         });

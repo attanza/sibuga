@@ -18,6 +18,11 @@
       <template
         v-slot:cell(project_id)="data"
       >{{ data.item.project ? data.item.project.code : data.value }}</template>
+
+      <template
+        v-slot:cell(amount)="data"
+      >IDR {{ currencyFormat(data.value) }}</template>
+
     </b-table>
     <hr />
     <tablePagination :pagination="pagination" @onChangePage="onChangePage"></tablePagination>

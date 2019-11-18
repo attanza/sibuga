@@ -16,6 +16,7 @@ class CreateQuotationsTable extends Migration
         Schema::create('quotations', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('company_id')->index();
+            $table->string('created_by')->index();
             $table->string('no', 20)->index();
             $table->string('title', 100);
             $table->text('terms')->nullable();
