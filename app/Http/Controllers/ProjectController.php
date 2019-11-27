@@ -34,6 +34,11 @@ class ProjectController extends Controller
 
     public function store(StoreProject $request)
     {
+        if ($request->has('with_ppn')) {
+            $request->merge(['with_ppn' => true]);
+        } else {
+            $request->merge(['with_ppn' => false]);
+        }
         $this->dbStore($request, 'Project');
         return redirect()->route('projects.index');
     }
@@ -50,6 +55,12 @@ class ProjectController extends Controller
 
     public function update(UpdateProject $request, $id)
     {
+        if ($request->has('with_ppn')) {
+            $request->merge(['with_ppn' => true]);
+        } else {
+            $request->merge(['with_ppn' => false]);
+        }
+        
         $this->dbUpdate($request, $id, 'Project');
         return redirect()->route('projects.index');
     }
@@ -86,14 +97,14 @@ class ProjectController extends Controller
         }
 
         // Get quotation with current project id
-        if(isset($id) && $id != null) {
-            $currentProjectQuotation = Quotation::select('id', 'no')->whereHas('project', function(Builder $query) use($id) {
+        if (isset($id) && $id != null) {
+            $currentProjectQuotation = Quotation::select('id', 'no')->whereHas('project', function (Builder $query) use ($id) {
                 $query->where('id', $id);
             })->first()->toArray();
         }
 
         // insert / unshit currentProjectQuotation
-        if($currentProjectQuotation != null) {
+        if ($currentProjectQuotation != null) {
             array_unshift($quotationArray, [
                 'id' => $currentProjectQuotation['id'],
                 'name' => $currentProjectQuotation['no'],
@@ -117,6 +128,7 @@ class ProjectController extends Controller
             [ 'key' => 'end_date', 'caption' => 'End Date', 'htmlElement' => 'text', 'type' => 'text' ],
             [ 'key' => 'status', 'caption' => 'Status', 'htmlElement' => 'select', 'selectValue' => $status],
             [ 'key' => 'amount', 'caption' => 'Amount', 'htmlElement' => 'text', 'type' => 'number' ],
+            ['key' => 'with_ppn', 'caption' => 'With 10% PPN ?', 'htmlElement' => 'checkbox'],
             [ 'key' => 'terms', 'caption' => 'Terms', 'htmlElement' => 'textarea'],
             [ 'key' => 'description', 'caption' => 'Description', 'htmlElement' => 'textarea' ],
 

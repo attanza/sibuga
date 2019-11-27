@@ -12,7 +12,7 @@ class Project extends Model
     protected $with = ['quotation.customer'];
 
     protected $fillable = [
-        'quotation_id','code','title','start_date','end_date','status','terms','description','amount'
+        'quotation_id','code','title','start_date','end_date','status','terms','description','amount', 'with_ppn'
     ];
 
     protected $casts = [
@@ -24,6 +24,7 @@ class Project extends Model
         'end_date'=>'date',
         'status'=>'string',
         'terms'=>'string',
+        'with_ppn'=>'boolean',
         'description'=>'string',
         'amount' =>  'decimal:2'
     ];

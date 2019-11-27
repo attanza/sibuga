@@ -22,6 +22,7 @@ class CreateProjectsTable extends Migration
             $table->date('end_date')->nullable();
             $table->string('status', 25)->index()->default('new');
             $table->decimal('amount', 13, 2);
+            $table->boolean('with_ppn')->default(true);
             $table->text('terms')->nullable();
             $table->text('description')->nullable();
 

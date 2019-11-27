@@ -1,6 +1,11 @@
 <template>
   <b-card>
-    <tableHeader @onPerPageChange="onPerPageChange" @onSearch="onSearch" :create-link="createLink"></tableHeader>
+    <tableHeader
+      @onPerPageChange="onPerPageChange"
+      @onSearch="onSearch"
+      :create-link="createLink"
+      :export-link="exportLink"
+    ></tableHeader>
     <hr />
     <b-table
       hover
@@ -32,6 +37,7 @@ export default {
   data() {
     return {
       link: "/api/products",
+      exportLink: "/manage/products-export",
       createLink: "/manage/products/create",
       fields: [
         { key: "code", sortable: true },

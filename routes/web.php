@@ -17,6 +17,7 @@ Route::middleware('auth')->prefix('manage')->group(function () {
     Route::resource('companies', 'CompanyController')->except(['destroy', 'edit']);
     Route::resource('contacts', 'ContactController')->except(['destroy', 'edit']);
     Route::resource('products', 'ProductController')->except(['destroy', 'edit']);
+    Route::get('products-export', 'ProductController@export');
     Route::resource('projects', 'ProjectController')->except(['destroy', 'edit']);
     Route::resource('quotations', 'QuotationController')->except(['destroy', 'edit']);
     Route::get('/quotations/{id}/pdf', 'QuotationController@createPdf');

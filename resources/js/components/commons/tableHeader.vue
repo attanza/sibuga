@@ -19,9 +19,12 @@
         </b-form-group>
       </b-col>
       <b-col md="4">
-        <b-button variant="primary" block @click="create">
-          <i class="fa fa-plus"></i>
-        </b-button>
+        <div class="d-sm-flex">
+          <a v-if="exportLink != ''" :href="exportLink" class="btn btn-success mr-3">Export</a>
+          <b-button variant="primary" block @click="create">
+            <i class="fa fa-plus"></i>
+          </b-button>
+        </div>
       </b-col>
     </b-row>
   </b-container>
@@ -47,7 +50,15 @@ export default {
     createLink: {
       type: String,
       required: true
+    },
+    exportLink: {
+      type: String,
+      required: false,
+      default: ""
     }
+  },
+  mounted() {
+    console.log("EXPORT LINK", this.exportLink);
   },
   watch: {
     perPage() {

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductsExport;
 use App\Http\Requests\StoreProduct;
 use App\Http\Requests\UpdateProduct;
 use App\Models\Product;
 use App\Traits\DbTrait;
 use Illuminate\Http\Request;
+use Excel;
 
 class ProductController extends Controller
 {
@@ -72,6 +74,11 @@ class ProductController extends Controller
     {
         $this->dbDelete($id, 'Product');
         return ['message' => 'Product deleted'];
+    }
+
+    public function export()
+    {
+        return Excel::download(new ProductsExport, 'products.xlsx');
     }
 
     public function getPriceById($id)
